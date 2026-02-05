@@ -78,4 +78,13 @@ canvas {display:block;width:100vw;height:100vh;background:radial-gradient(ellips
 /* 모바일 가상 조이스틱 */
 #stick {position:fixed; left:20px; bottom:20px; width:120px; height:120px; border-radius:50%; background:#0b1220aa; border:1px solid #0e1626; display:none; touch-action:none; user-select:none; -webkit-user-select:none;}
 #knob  {position:absolute; left:35px; top:35px; width:50px; height:50px; border-radius:50%; background:#1e2a45; border:1px solid #0e1626;}
-@media (hover:none) and (pointer:coarse) { #stick{display:block;} }
+@media (hover:none) and (pointer:coarse) {
+  body {
+    transform: scale(0.7);
+    transform-origin: top left;
+    width: calc(100vw / 0.7);
+    height: calc(100vh / 0.7);
+    overflow: hidden;
+  }
+  #stick{display:block;} 
+}
