@@ -41,20 +41,55 @@ const stick = document.getElementById('stick');
 const knob  = document.getElementById('knob');
 let stickVec = {x:0,y:0};
 (function setupStick(){
-  const rect = ()=>stick.getBoundingClientRect();
   let dragging=false;
-  function move(e){
-    const r = rect(); const t = e.touches?e.touches[0]:e; const cx=60, cy=60;
-    let vx = t.clientX-r.left-cx, vy = t.clientY-r.top-cy;
-    const L = Math.hypot(vx,vy)||1; const m = Math.min(40,L);
-    vx = vx/L*m; vy = vy/L*m;
-    knob.style.left = (cx+vx-25)+'px'; knob.style.top=(cy+vy-25)+'px';
-    stickVec.x = vx/40; stickVec.y = vy/40;
+
+  function move(e) {
+    if (!dragging) return;
+    e.preventDefault();
+
+    const r = stick.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    
+    let vx = t.clientX - cx;
+    let vy = t.clientY - cy;
+
+    const L = Math.hypot(vx, vy) || 1;
+    const m = Math.min(40, L);
+
+    vx = vx / L * m;
+    vy = vy / L * m;
+
+    knob.style.left = (60 + vx - 25) + 'px';
+    knob.style.top = (60 + vy - 25) + 'px';
+
+    stickVec.x = vx / 40;
+    stickVec.y = vy / 40;
   }
-  function reset(){ knob.style.left='35px'; knob.style.top='35px'; stickVec.x=0; stickVec.y=0; }
-  stick.addEventListener('pointerdown',e=>{e.preventDefault(); dragging=true; stick.setPointerCapture(e.pointerId); move(e);});
-  stick.addEventListener('pointermove',e=>{ if(dragging) {e.preventDefault(); move(e);} });
-  stick.addEventListener('pointerup',  e=>{dragging=false; reset();});
+
+  function onPointerUp(e) {
+    dragging = false;
+    window.removeEventListener('pointermove', move);
+    window.removeEventListener('pointerup', onPointerUp);
+    window.removeEventListener('pointercancel', onPointerUp); // Also handle cancel events
+
+    knob.style.left = '35px';
+    knob.style.top = '35px';
+    stickVec.x = 0;
+    stickVec.y = 0;
+  }
+
+  stick.addEventListener('pointerdown', e => {
+    dragging = true;
+    e.preventDefault();
+    
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp); // Handle cases where the touch is interrupted
+
+    move(e);
+  });
 })();
 
 // UI(레벨업/리스타트) 초기화
