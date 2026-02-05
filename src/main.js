@@ -179,7 +179,7 @@ function loop(ts){
   
   // 궁극기 버튼 UI 업데이트
   if (game.player.hasTacticalScope) {
-    ultimateBtn.style.display = 'flex'; // 스코프 획득 시 버튼 표시
+    ultimateBtn.style.visibility = 'visible'; // 스코프 획득 시 버튼 표시
     if (game.player.tacticalScopeCooldown > 0) {
       ultimateBtn.style.opacity = '0.5';
       ultimateBtn.textContent = `${Math.ceil(game.player.tacticalScopeCooldown)}`;
@@ -188,7 +188,7 @@ function loop(ts){
       ultimateBtn.textContent = '궁극기';
     }
   } else {
-    ultimateBtn.style.display = 'none'; // 스코프 미보유 시 버튼 숨김
+    ultimateBtn.style.visibility = 'hidden'; // 스코프 미보유 시 버튼 숨김
   }
 
 
