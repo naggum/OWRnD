@@ -115,63 +115,37 @@ canvas {display:block;width:100vw;height:100vh;background:radial-gradient(ellips
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .hud {
-    flex-direction: column;
-    align-items: center;
-    padding: 8px 6px;
-    gap: 8px;
+    flex-wrap: wrap; /* Allow sections to wrap */
+    justify-content: center; /* Center the content */
+    gap: 6px;
+    padding: 4px;
   }
 
   .left-hud-section {
-    flex-direction: column;
-    gap: 8px;
-    width: 100%; /* Take full width to allow centering */
-    align-items: center; /* Center items within the section */
+    gap: 6px;
   }
-
-  .hud .sep {
-    display: none; /* Hide separators on small screens */
+  
+  .desktop-only {
+    display: none;
   }
 
   #stats-display {
-    flex-direction: column;
-    gap: 8px;
-    padding: 8px 10px;
-    width: auto; /* Allow content to dictate width */
-    margin: 0; /* Remove auto margin to allow proper centering */
+    flex-wrap: wrap; /* Allow individual stats to wrap */
+    justify-content: center;
+    gap: 10px;
+    padding: 4px 8px;
   }
 
   #stats-display p {
-    white-space: normal; /* Allow text to wrap */
-    text-align: center; /* Center the text */
+    font-size: 11px; /* Smaller font for stats */
   }
 
   .bar {
-    width: 150px; /* Make bars a bit smaller */
+    width: 80px; /* Make bars smaller */
   }
 
   .pill {
     padding: 4px 8px; /* Smaller pills */
-    font-size: 11px; /* Smaller font size */
-  }
-
-  /* Adjust joystick and ultimate button positions if necessary due to scaling */
-  #stick {
-    left: 10px;
-    bottom: 10px;
-    width: 100px;
-    height: 100px;
-  }
-  #knob {
-    left: 25px; /* (100 - 50) / 2 */
-    top: 25px; /* (100 - 50) / 2 */
-    width: 50px;
-    height: 50px;
-  }
-  #ultimate-btn {
-    right: 10px;
-    bottom: 10px;
-    width: 70px;
-    height: 70px;
-    font-size: 14px;
+    font-size: 11px;
   }
 }
