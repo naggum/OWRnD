@@ -52,8 +52,8 @@ let stickVec = {x:0,y:0};
     stickVec.x = vx/40; stickVec.y = vy/40;
   }
   function reset(){ knob.style.left='35px'; knob.style.top='35px'; stickVec.x=0; stickVec.y=0; }
-  stick.addEventListener('pointerdown',e=>{dragging=true; stick.setPointerCapture(e.pointerId); move(e);});
-  stick.addEventListener('pointermove',e=>{ if(dragging) move(e); });
+  stick.addEventListener('pointerdown',e=>{e.preventDefault(); dragging=true; stick.setPointerCapture(e.pointerId); move(e);});
+  stick.addEventListener('pointermove',e=>{ if(dragging) {e.preventDefault(); move(e);} });
   stick.addEventListener('pointerup',  e=>{dragging=false; reset();});
 })();
 
