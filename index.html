@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>Prototype</title>
+  <link rel="stylesheet" href="./styles/style.css" />
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <!-- HUD -->
+  <div class="hud">
+    <!-- 왼쪽 섹션 -->
+    <div class="left-hud-section">
+      <div class="pill">⏱ <b id="time">00:00</b></div>
+      <div class="pill">레벨 <b id="level">1</b></div>
+      <div class="bar hp"><i id="hpbar" style="width:100%"></i></div>
+      <div class="bar xp"><i id="xpbar" style="width:0%"></i></div>
+      <div class="pill">적 <b id="enemies">0</b></div>
+    </div>
+
+    <div class="sep"></div> <!-- 왼쪽과 중앙 분리 -->
+
+    <!-- 중앙 스탯 정보 -->
+    <div id="stats-display"></div>
+
+    <div class="sep"></div> <!-- 중앙과 오른쪽 분리 -->
+
+    <!-- 오른쪽 섹션 (WASD 이동 안내) -->
+    <div>
+      <div class="pill small">WASD 이동 · 자동공격</div>
+    </div>
+  </div>
+
+  <!-- 레벨업 모달 -->
+  <div id="levelup" class="modal">
+    <div class="panel">
+      <h2 style="margin-top:0">레벨 업! 하나를 선택하세요</h2>
+      <div id="choices" class="cardwrap"></div>
+    </div>
+  </div>
+
+  <!-- 게임 오버 -->
+  <div id="gameover" class="center">
+    <div class="panel">
+      <h2 style="margin-top:0">게임 오버</h2>
+      <p class="small" id="summary"></p>
+      <button class="btn" id="restart">다시 시작</button>
+    </div>
+  </div>
+
+  <!-- 모바일 가상 조이스틱 -->
+  <div id="stick"><div id="knob"></div></div>
+
+  <!-- ES 모듈 엔트리 -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

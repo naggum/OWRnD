@@ -1,0 +1,81 @@
+:root {
+  --bg:#0b0e14; --fg:#e6e6e6; --acc:#59f; --hp:#e34; --xp:#3ae; --gold:#fc3;
+  --panel:#111722cc; --panel-solid:#111722; --btn:#1b2330; --btn-h:#263146;
+}
+html,body {margin:0;height:100%;background:var(--bg);color:var(--fg);
+  font:14px/1.4 system-ui,Segoe UI,Apple SD Gothic Neo,Malgun Gothic,Roboto,sans-serif;}
+canvas {display:block;width:100vw;height:100vh;background:radial-gradient(ellipse at center, #0f1420 0%, #0b0e14 70%);}
+
+/* HUD */
+.hud {
+  position:fixed; left:0; top:0; right:0; display:flex; padding:8px 12px; align-items:center;
+  background:linear-gradient(#00000055,#00000000);
+  user-select:none; -webkit-user-select:none; pointer-events:none;
+  justify-content:space-between; /* 요소들 간의 공간 분배 */
+  gap:12px; /* 기본 HUD 아이템 간의 간격 */
+}
+
+.left-hud-section {
+  display:flex;
+  flex-direction:row; /* 가로로 정렬 */
+  gap:12px; /* 아이템 사이의 간격 */
+  align-items:center; /* 세로 중앙 정렬 */
+}
+
+/* 바의 너비를 줄여 가로 배치에 적합하게 */
+.bar {height:12px; width:100px; background:#222a3a; border:1px solid #111624; border-radius:6px; overflow:hidden; flex-shrink:0;}
+
+/* 기존 .hud.top-right는 이제 사용되지 않음 */
+
+#stats-display {
+  display:flex; /* 자식 요소들을 가로로 배열 */
+  gap:20px; /* 각 스탯 항목 사이 간격 */
+  background:linear-gradient(#00000055,#00000000); /* 배경 유지 */
+  border-radius:10px; /* 모서리 둥글게 */
+  padding:8px 15px; /* 내부 패딩 */
+  margin:0 auto; /* 중앙 정렬을 위한 마진 */
+  pointer-events:auto; /* 스탯 창도 클릭 가능하게 */
+}
+#stats-display p {
+  margin:0; /* 기본 마진 제거 */
+  color:#bdc7db;
+  font-size:13px;
+  line-height:1.2;
+  white-space:nowrap; /* 줄바꿈 방지 */
+}
+#stats-display b {
+  color:#a9c7ff;
+}
+.hud .sep {flex:1;}
+.pill {background:#1c2335; padding:6px 10px; border-radius:999px; border:1px solid #0f1524; pointer-events:auto; white-space:nowrap;}
+.pill.small {opacity:.8; font-size:12px;}
+
+.bar {height:12px; width:260px; background:#222a3a; border:1px solid #111624; border-radius:6px; overflow:hidden; flex-shrink:0;}
+.bar>i {display:block; height:100%;}
+.hp>i {background:linear-gradient(90deg,#ff4d4d,#e31b4b);}
+.xp>i {background:linear-gradient(90deg,#21c8ff,#2196f3);}
+
+/* 레벨업 모달 */
+.modal {position:fixed; inset:0; display:none; place-items:center; background:#0009;}
+.modal.show {display:grid;}
+.cardwrap {display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); width:min(900px,90vw);}
+.card {
+  background:var(--panel); border:1px solid #0e1626; border-radius:12px; padding:14px; cursor:pointer;
+  transition:.12s transform ease, .12s background ease;
+  backdrop-filter:saturate(120%) blur(4px);
+}
+.card:hover {transform:translateY(-2px); background:#1a2236cc;}
+.card h3 {margin:0 0 6px 0; font-size:16px; color:#a9c7ff;}
+.card p {margin:0; color:#bdc7db;}
+
+/* 게임 오버 */
+.center {position:fixed; inset:0; display:none; place-items:center; background:#0008; text-align:center;}
+.center.show {display:grid;}
+.panel {background:var(--panel-solid); border:1px solid #0e1626; border-radius:14px; padding:18px 20px; width:min(520px,92vw);}
+.btn {display:inline-block; background:var(--btn); border:1px solid #0e1626; padding:10px 12px; border-radius:10px; cursor:pointer; color:#cfe0ff;}
+.btn:hover {background:var(--btn-h);}
+
+/* 모바일 가상 조이스틱 */
+#stick {position:fixed; left:20px; bottom:20px; width:120px; height:120px; border-radius:50%; background:#0b1220aa; border:1px solid #0e1626; display:none;}
+#knob  {position:absolute; left:35px; top:35px; width:50px; height:50px; border-radius:50%; background:#1e2a45; border:1px solid #0e1626;}
+@media (hover:none) and (pointer:coarse) { #stick{display:block;} }
