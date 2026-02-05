@@ -11,27 +11,32 @@ resizeCanvas();
 
 // 입력
 const keys = { w:false, a:false, s:false, d:false };
+
+function activateUltimate() {
+  if(game.player.hasTacticalScope && !game.player.isTacticalScopeActive && game.player.tacticalScopeCooldown <= 0){
+    game.player.isTacticalScopeActive = true;
+    game.player.tacticalScopeDuration = game.player.tacticalScopeMaxDuration;
+    // 스탯 버프 적용을 위한 초기화
+    game.player.originalSpeed = game.player.speed;
+    game.player.originalCooldown = game.player.cooldown;
+    game.player.originalDmg = game.player.dmg;
+
+    game.player.speed *= 2; // 100% 증가
+    game.player.cooldown /= 3; // 200% 증가 (1/3로 단축)
+    game.player.dmg *= 1.5; // 50% 증가
+    game.ultimateMessage.text = '목표를 포착했다.';
+    game.ultimateMessage.duration = 3;
+    updateStatsDisplay(); // 스탯 디스플레이 업데이트
+  }
+}
+
 addEventListener('keydown', e => {
   if(e.code==='KeyW')keys.w=true;
   if(e.code==='KeyA')keys.a=true;
   if(e.code==='KeyS')keys.s=true;
   if(e.code==='KeyD')keys.d=true;
   if(e.code==='KeyQ'){ // 'Q' 키로 궁극기 활성화
-    if(game.player.hasTacticalScope && !game.player.isTacticalScopeActive && game.player.tacticalScopeCooldown <= 0){
-      game.player.isTacticalScopeActive = true;
-      game.player.tacticalScopeDuration = game.player.tacticalScopeMaxDuration;
-      // 스탯 버프 적용을 위한 초기화
-      game.player.originalSpeed = game.player.speed;
-      game.player.originalCooldown = game.player.cooldown;
-      game.player.originalDmg = game.player.dmg;
-
-      game.player.speed *= 2; // 100% 증가
-      game.player.cooldown /= 3; // 200% 증가 (1/3로 단축)
-      game.player.dmg *= 1.5; // 50% 증가
-      game.ultimateMessage.text = '목표를 포착했다.';
-      game.ultimateMessage.duration = 3;
-      updateStatsDisplay(); // 스탯 디스플레이 업데이트
-    }
+    activateUltimate();
   }
 });
 addEventListener('keyup',   e => { if(e.code==='KeyW')keys.w=false; if(e.code==='KeyA')keys.a=false; if(e.code==='KeyS')keys.s=false; if(e.code==='KeyD')keys.d=false; });
@@ -91,6 +96,10 @@ let stickVec = {x:0,y:0};
     move(e);
   });
 })();
+
+// 모바일 궁극기 버튼
+const ultimateBtn = document.getElementById('ultimate-btn');
+ultimateBtn.addEventListener('click', activateUltimate);
 
 // UI(레벨업/리스타트) 초기화
 setupUI(resetGame);
@@ -167,6 +176,21 @@ function loop(ts){
       }
     }
   }
+  
+  // 궁극기 버튼 UI 업데이트
+  if (game.player.hasTacticalScope) {
+    ultimateBtn.style.display = 'flex'; // 스코프 획득 시 버튼 표시
+    if (game.player.tacticalScopeCooldown > 0) {
+      ultimateBtn.style.opacity = '0.5';
+      ultimateBtn.textContent = `${Math.ceil(game.player.tacticalScopeCooldown)}`;
+    } else {
+      ultimateBtn.style.opacity = '1';
+      ultimateBtn.textContent = '궁극기';
+    }
+  } else {
+    ultimateBtn.style.display = 'none'; // 스코프 미보유 시 버튼 숨김
+  }
+
 
   // 이동 입력
   let vx = (keys.d?1:0) - (keys.a?1:0) + stickVec.x;
