@@ -90,7 +90,7 @@ canvas {display:block;width:100vw;height:100vh;background:radial-gradient(ellips
   background: #a338;
   border: 1px solid #f88;
   color: white;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
@@ -99,6 +99,9 @@ canvas {display:block;width:100vw;height:100vh;background:radial-gradient(ellips
   user-select: none;
   -webkit-user-select: none;
   backdrop-filter: blur(4px);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 #ultimate-btn:active {
   background: #f559;
@@ -106,13 +109,69 @@ canvas {display:block;width:100vw;height:100vh;background:radial-gradient(ellips
 
 
 @media (hover:none) and (pointer:coarse) {
-  body {
-    transform: scale(0.7);
-    transform-origin: top left;
-    width: calc(100vw / 0.7);
-    height: calc(100vh / 0.7);
-    overflow: hidden;
-  }
   #stick{display:block;}
-  #ultimate-btn{display:flex;}
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .hud {
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 6px;
+    gap: 8px;
+  }
+
+  .left-hud-section {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%; /* Take full width to allow centering */
+    align-items: center; /* Center items within the section */
+  }
+
+  .hud .sep {
+    display: none; /* Hide separators on small screens */
+  }
+
+  #stats-display {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 10px;
+    width: auto; /* Allow content to dictate width */
+    margin: 0; /* Remove auto margin to allow proper centering */
+  }
+
+  #stats-display p {
+    white-space: normal; /* Allow text to wrap */
+    text-align: center; /* Center the text */
+  }
+
+  .bar {
+    width: 150px; /* Make bars a bit smaller */
+  }
+
+  .pill {
+    padding: 4px 8px; /* Smaller pills */
+    font-size: 11px; /* Smaller font size */
+  }
+
+  /* Adjust joystick and ultimate button positions if necessary due to scaling */
+  #stick {
+    left: 10px;
+    bottom: 10px;
+    width: 100px;
+    height: 100px;
+  }
+  #knob {
+    left: 25px; /* (100 - 50) / 2 */
+    top: 25px; /* (100 - 50) / 2 */
+    width: 50px;
+    height: 50px;
+  }
+  #ultimate-btn {
+    right: 10px;
+    bottom: 10px;
+    width: 70px;
+    height: 70px;
+    font-size: 14px;
+  }
 }
