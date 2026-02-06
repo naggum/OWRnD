@@ -76,7 +76,7 @@ canvas {display:block;width:100vw;height:100vh;background:radial-gradient(ellips
 .btn:hover {background:var(--btn-h);}
 
 /* 모바일 가상 조이스틱 */
-#stick {position:fixed; left:20px; bottom:20px; width:120px; height:120px; border-radius:50%; background:#0b1220aa; border:1px solid #0e1626; display:none; touch-action:none; user-select:none; -webkit-user-select:none;}
+#stick {position:fixed; left:20px; bottom:20px; width:120px; height:120px; border-radius:50%; background:#0b1220aa; border:1px solid #0e1626; touch-action:none; user-select:none; -webkit-user-select:none;}
 #knob  {position:absolute; left:35px; top:35px; width:50px; height:50px; border-radius:50%; background:#1e2a45; border:1px solid #0e1626;}
 
 /* 모바일 궁극기 버튼 */
@@ -105,11 +105,6 @@ canvas {display:block;width:100vw;height:100vh;background:radial-gradient(ellips
 }
 #ultimate-btn:active {
   background: #f559;
-}
-
-
-@media (hover:none) and (pointer:coarse) {
-  #stick{display:block;}
 }
 
 /* Responsive adjustments for smaller screens */
