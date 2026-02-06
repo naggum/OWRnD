@@ -130,7 +130,7 @@ function dropFrom(e){
 
 export function tacticalScopeAttack(dt){
   const p = game.player;
-  const bulletSpd = 800; // 궁극기 총알 속도
+  const bulletSpd = 600; // 궁극기 총알 속도
   const ultimateDmg = p.dmg; // 이미 버프된 데미지 사용
 
   // 모든 적에게 발사
@@ -145,4 +145,5 @@ export function tacticalScopeAttack(dt){
     const angle = Math.atan2(boss.y - p.y, boss.x - p.x);
     game.bullets.push({ x:p.x, y:p.y, vx:Math.cos(angle)*bulletSpd, vy:Math.sin(angle)*bulletSpd, r:4, dmg:ultimateDmg, life:1.2, color:'#ffff00' }); // 노란색 총알
   }
+
 }
