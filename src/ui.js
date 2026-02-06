@@ -97,7 +97,7 @@ export function updateStatsDisplay(){
 
   let statsHtml = ``;
   statsHtml += `<p>공격력: <b>${(game.player.dmg).toFixed(1)}</b></p>`;
-  statsHtml += `<p>공격속도: <b>${(game.player.cooldown).toFixed(1)}</b></p>`;
+  //statsHtml += `<p>공격속도: <b>${(game.player.cooldown).toFixed(1)}</b></p>`;
   statsHtml += `<p>이동속도: <b>${game.player.speed.toFixed(1)}</b></p>`;
 
   if (game.player.hasSpiralRocket) {
@@ -128,4 +128,5 @@ export function updateStatsDisplay(){
 
   statsDisplay.innerHTML = statsHtml;
 }
+
 
