@@ -27,9 +27,9 @@ export function maybeLevelUp(){
 
   // 레벨업이 발생했고, 현재 레벨업 화면이 열려있지 않으면 스킬 선택지 표시
   if (leveledUpThisCall && !document.getElementById('levelup').classList.contains('show')) {
-    // 레벨업 시 모든 적에게 현재 체력의 50% 데미지
+    // 레벨업 시 모든 적에게 현재 체력의 30% 데미지
     for (const e of game.enemies) {
-      e.hp *= 0.5;
+      e.hp *= 0.7;
     }
 
     // 이펙트 활성화
@@ -48,11 +48,11 @@ export function maybeLevelUp(){
 export function openLevelUp(){
   game.running=false;
   const pool = [
-    {name:"공격력 +30%", apply:()=>game.player.dmg*=1.3, desc:"+30% 피해"},
-    {name:"쿨다운 -30%", apply:()=>game.player.cooldown*=0.7, desc:"자동 사격 주기 30% 단축"},
+    {name:"공격력 +20%", apply:()=>game.player.dmg*=1.2, desc:"+20% 피해"},
+    {name:"사격속도 증가 +20%", apply:()=>game.player.cooldown*=0.8, desc:"사격 속도 20% 증가"},
     game.player.hasSpiralRocket
       ? {name:"나선로켓 레벨업", apply:()=>{game.player.spiralRocketDmgMultiplier*=1.2;}, desc:"나선로켓의 데미지 20% 증가"}
-      : {name:"나선로켓 획득", apply:()=>{game.player.hasSpiralRocket=true; game.player.spiralRocketCharge=0;}, desc:"기본공격 5번마다 2개의 나선 로켓(기본 데미지 4배) 발사"},
+      : {name:"나선로켓 획득", apply:()=>{game.player.hasSpiralRocket=true; game.player.spiralRocketCharge=0;}, desc:"기본공격 5번마다 나선 로켓(기본 데미지 4배) 발사"},
     {name:"이동속도 +20%", apply:()=>game.player.speed*=1.2, desc:"기본 이동속도 20% 증가"},
     {name:"최대 체력 +20%", apply:()=>{game.player.maxHp=Math.round(game.player.maxHp*1.2); game.player.hp=game.player.maxHp;}, desc:"회복 포함"},
     game.player.biofield ? {name:"생체장 레벨업", apply:()=>{game.player.biofieldCooldown=Math.max(1, game.player.biofieldCooldown-0.5);}, desc:`쿨타임 ${game.player.biofieldCooldown.toFixed(1)}초 → ${(game.player.biofieldCooldown - 0.5).toFixed(1)}초`}
@@ -97,6 +97,7 @@ export function updateStatsDisplay(){
 
   let statsHtml = ``;
   statsHtml += `<p>공격력: <b>${(game.player.dmg).toFixed(1)}</b></p>`;
+  statsHtml += `<p>공격속도: <b>${(game.player.cooldown).toFixed(1)}</b></p>`;
   statsHtml += `<p>이동속도: <b>${game.player.speed.toFixed(1)}</b></p>`;
 
   if (game.player.hasSpiralRocket) {
@@ -127,3 +128,4 @@ export function updateStatsDisplay(){
 
   statsDisplay.innerHTML = statsHtml;
 }
+
