@@ -48,8 +48,8 @@ export function maybeLevelUp(){
 export function openLevelUp(){
   game.running=false;
   const pool = [
-    {name:"공격력 +20%", apply:()=>game.player.dmg*=1.2, desc:"+20% 피해"},
-    {name:"사격속도 증가 +20%", apply:()=>game.player.cooldown*=0.8, desc:"사격 속도 20% 증가"},
+    {name:"공격력 +25%", apply:()=>game.player.dmg*=1.25, desc:"+25% 피해"},
+    {name:"사격속도 증가 +25%", apply:()=>game.player.cooldown*=0.75, desc:"사격 속도 25% 증가"},
     game.player.hasSpiralRocket
       ? {name:"나선로켓 레벨업", apply:()=>{game.player.spiralRocketDmgMultiplier*=1.2;}, desc:"나선로켓의 데미지 20% 증가"}
       : {name:"나선로켓 획득", apply:()=>{game.player.hasSpiralRocket=true; game.player.spiralRocketCharge=0;}, desc:"기본공격 5번마다 나선 로켓(기본 데미지 4배) 발사"},
@@ -128,5 +128,6 @@ export function updateStatsDisplay(){
 
   statsDisplay.innerHTML = statsHtml;
 }
+
 
 
